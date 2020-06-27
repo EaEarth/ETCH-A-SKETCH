@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>EaS</title>
+</head>
+<body>
+    <div class ="page" onload="resize()">
+        <div class ="container">
+            
+        </div>
+        <div class ="button">
+            <button class="reset">Reset</button>
+            <button class="resize">Resize</button>
+        </div>
+    </div>
+
+    <script>
+        let size = 16;
+
+        function resize(){
+            let table = document.getElementsByClassName("container");
+            table[0].style.gridTemplateColumns = `repeat(${size},1fr)`;
+            table[0].style.gridTemplateRow = `repeat(${size},1fr)`;
+            for(let i = 0; i<size; ++i){
+                for(let j = 0; j<size; ++j){
+                    let tile = document.createElement("div")
+                    tile.className = "tile"
+                    tile.addEventListener('mouseenter',function(){
+                        tile.style.backgroundColor = 'black';
+                    })
+                    table[0].appendChild(tile)
+                }
+            }
+        }
+
+        resize();
+
+    </script>
+</body>
+</html>
