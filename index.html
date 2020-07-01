@@ -6,21 +6,24 @@
     <title>EaS</title>
 </head>
 <body>
-    <div class ="page" onload="resize()">
+    <div class ="page" onload="resizeTable()">
         <div class ="container">
             
         </div>
         <div class ="button">
-            <button class="reset">Reset</button>
-            <button class="resize">Resize</button>
+            <button id="reset">Reset</button>
+            <button id="resize">Resize</button>
         </div>
     </div>
 
     <script>
         let size = 16;
+        let reset = document.getElementById("reset")
+        let resize = document.getElementById("resize")
 
-        function resize(){
+        function resizeTable(){
             let table = document.getElementsByClassName("container");
+            while(table[0].firstChild) table[0].removeChild(table[0].lastChild)
             table[0].style.gridTemplateColumns = `repeat(${size},1fr)`;
             table[0].style.gridTemplateRow = `repeat(${size},1fr)`;
             for(let i = 0; i<size; ++i){
@@ -35,7 +38,40 @@
             }
         }
 
-        resize();
+        function resetTable(){
+            let tile = document.getElementsByClassName("tile")
+            for(let i = 0; i<tile.length; ++i){
+                tile[i].style.backgroundColor = "white"
+            }
+        }
+
+        function recieveTableSize(){
+            let resize = prompt("Please enter table's size max to 500")
+            if(isNaN(resize)){
+                alert("Please enter number correctly")
+                return
+            }
+            resize = Number(resize)
+            if(resize<0){
+                alert("Please enter positive number")
+                return
+            }
+            if(!Number.isInteger(resize)){
+                alert("Please enter integer number")
+                return
+            }
+            if(resize>500){
+                alert("Largest table's size is 500")
+                return
+            }
+            size = resize
+            resizeTable()
+            return
+        }
+
+        resizeTable();
+        reset.addEventListener("click",resetTable)
+        resize.addEventListener("click",recieveTableSize)
 
     </script>
 </body>
